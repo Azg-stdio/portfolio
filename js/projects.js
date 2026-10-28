@@ -169,11 +169,21 @@ window.PROJECTS = [
     id: "lorstats", section: "web", title: "LoR Stats", tag: "2020 - 2022",
     intro: "LoR Stats is a match history and stats tracker for Legends of Runeterra.",
     text: [
-      "Look up a player and browse their matches, decks and win rates. Built with Python, Flask and Firebase, officially associated with Riot Games, with a companion Discord bot distributed via top.gg."
+      "Look up a player and browse their matches, decks and win rates. Built with Python, Flask and Firebase, officially associated with Riot Games."
     ],
     genre: "Web, Stats", role: "Programmer",
     thumb: "assets/img/projects/lorstats-thumb.webp",
     shots: ["assets/img/projects/lorstats-1.webp", "assets/img/projects/lorstats-2.webp", "assets/img/projects/lorstats-3.webp"],
+    links: []
+  },
+  {
+    id: "lorbot", section: "web", title: "LoR Stats Bot", tag: "2020 - 2022",
+    intro: "LoR Stats Bot is the Discord companion of LoR Stats.",
+    text: [
+      "Check your Legends of Runeterra match history and stats without leaving Discord. Written in Python and distributed through top.gg."
+    ],
+    genre: "Discord Bot, Stats", role: "Programmer",
+    shots: [],
     links: []
   },
   {

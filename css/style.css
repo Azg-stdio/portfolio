@@ -83,7 +83,7 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
   border: 3px solid var(--frame); box-shadow: 0 0 0 2px var(--box-edge), inset 0 0 0 2px var(--box-edge);
   transition: background-color var(--t) ease, box-shadow var(--t) ease;
 }
-.btn::before { content: ""; width: 0; height: 0; border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-left: 10px solid transparent; }
+.btn::before { content: ""; width: 0; height: 0; border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-left: 10px solid var(--frame); }
 .btn:hover::before, .btn:focus-visible::before { border-left-color: var(--accent); }
 .btn:hover { color: var(--accent); }
 
@@ -98,8 +98,7 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 .nav.is-scrolled { background: var(--box); box-shadow: 0 4px 0 0 var(--frame), 0 6px 0 0 var(--box-edge); }
 .nav__links { display: flex; flex-wrap: wrap; gap: clamp(10px, 2vw, 26px); }
 .nav__links a { color: #fff; text-decoration: none; font-size: 1.2rem; padding: 6px 2px; text-shadow: 2px 2px 0 var(--box-edge); }
-.nav__links a::before { content: ""; display: inline-block; width: 0; height: 0; margin-right: 6px; vertical-align: 1px; border-top: 6px solid transparent; border-bottom: 6px solid transparent; border-left: 8px solid transparent; }
-.nav__links a:hover::before, .nav__links a.is-active::before { border-left-color: var(--accent); }
+.nav__links a:hover, .nav__links a.is-active { color: var(--accent); }
 .nav__theme { display: grid; place-items: center; width: 40px; height: 40px; color: #fff; background: var(--box); border: 3px solid var(--frame); box-shadow: 0 0 0 2px var(--box-edge); }
 .nav__theme svg { fill: currentColor; }
 .ico-moon, .ico-pause { display: none; }
@@ -110,8 +109,7 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 @media (max-width: 560px) {
   .nav { padding: 10px 10px; gap: 8px; justify-content: space-between; }
   .nav__links { gap: 7px; }
-  .nav__links a { font-size: 0.82rem; padding: 6px 0; }
-  .nav__links a::before { margin-right: 3px; border-top-width: 5px; border-bottom-width: 5px; border-left-width: 6px; }
+  .nav__links a { font-size: 0.85rem; padding: 6px 0; }
 }
 
 /* ───────── hero ───────── */
@@ -139,14 +137,18 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
     radial-gradient(1.5px 1.5px at 62% 44%, #fff 50%, transparent 51%),
     radial-gradient(2px 2px at 20% 6%, #fff 50%, transparent 51%);
 }
-/* sun and moon: the sun sets and the moon rises when the theme switches */
-.sun, .moon { position: absolute; top: 12%; right: 14%; width: clamp(56px, 7vw, 96px); height: auto; transition: transform var(--t) ease-in-out, opacity var(--t) ease-in-out; image-rendering: pixelated; }
+/* sun and moon: fixed in the top left sky, always a way back to the top.
+   The sun sets and the moon rises when the theme switches. */
+.celestial { position: fixed; top: 92px; left: clamp(16px, 4vw, 56px); z-index: 45; width: clamp(52px, 6vw, 84px); aspect-ratio: 1; display: block; transition: transform 200ms ease; }
+.celestial:hover { transform: translateY(-4px); }
+.celestial svg { position: absolute; inset: 0; width: 100%; height: 100%; transition: transform var(--t) ease-in-out, opacity var(--t) ease-in-out; image-rendering: pixelated; filter: drop-shadow(3px 3px 0 rgba(11, 19, 38, 0.35)); }
 .sun  { transform: translateY(calc(var(--night) * 160px)); opacity: calc(1 - var(--night)); }
 .moon { transform: translateY(calc((1 - var(--night)) * -160px)); opacity: var(--night); }
+@media (max-width: 560px) { .celestial { top: 110px; } }
 
 .layer { position: absolute; inset: 0; will-change: transform; filter: var(--layer-filter); transition: filter var(--t) ease; }
 .layer .tile {
-  position: absolute; left: 0; bottom: 0; height: 100%;
+  position: absolute; left: 0; bottom: 14%; height: 100%;
   width: calc(100% + var(--tile, 1920px));
   background-repeat: repeat-x; background-position: left bottom; background-size: auto 100%;
   image-rendering: pixelated;
@@ -157,6 +159,7 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 .layer--c3 .tile    { background-image: url("../assets/img/hero/clouds3.webp"); --drift: 150s; }
 .layer--c2 .tile    { background-image: url("../assets/img/hero/clouds2.webp"); --drift: 110s; }
 .layer--c1 .tile    { background-image: url("../assets/img/hero/clouds1.webp"); --drift: 80s; }
+.layer--c1::after { content: ""; position: absolute; left: 0; right: 0; top: 86%; height: 80%; background: linear-gradient(#d3f0fc, #8dc0fa 5%); } /* day colours: the layer's night filter darkens them to the night page colour */
 @keyframes drift { to { transform: translateX(calc(-1 * var(--tile, 1920px))); } }
 
 /* a soft dark halo behind the title so it reads on the pale sky */
@@ -283,8 +286,6 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 .footer { padding: 24px 16px 40px; text-align: center; font-family: var(--pixel); font-size: 1.1rem; color: #fff; text-shadow: 2px 2px 0 var(--box-edge); }
 .footer p { margin: 0; }
 
-.to-top { position: fixed; right: 16px; bottom: 16px; z-index: 40; display: grid; place-items: center; width: 44px; height: 44px; background: var(--box); border: 3px solid var(--frame); box-shadow: 0 0 0 2px var(--box-edge); }
-.to-top[hidden] { display: none; }
 
 /* ───────── motion ───────── */
 @media (prefers-reduced-motion: reduce) {

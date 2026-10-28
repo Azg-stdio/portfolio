@@ -118,6 +118,9 @@
   function parallax() {
     const y = scrollY;
     if (y <= hero.offsetHeight) {
+      // Layers lag behind the page by their depth. Their tiles sit 14% above the hero's
+      // bottom edge and the nearest layer fills that gap with a soft horizon into the page colour,
+      // so the edge only ever cuts through flat colour, never through a cloud.
       heroLayers.forEach((l) => { l.style.transform = `translate3d(0, ${Math.round(y * l.dataset.depth)}px, 0)`; });
     }
     skyLayers.forEach((l) => { l.style.transform = `translate3d(0, ${-Math.round(y * l.dataset.depth) % 1080}px, 0)`; });
@@ -127,12 +130,10 @@
 
   /* ───────── nav, back to top ───────── */
   const nav = $("#nav");
-  const toTop = $("#to-top");
   const navLinks = $$(".nav__links a");
   let ticking = false;
   addEventListener("scroll", () => {
     nav.classList.toggle("is-scrolled", scrollY > 40);
-    toTop.hidden = scrollY < hero.offsetHeight;
     if (reduceMotion || ticking) return;
     ticking = true;
     requestAnimationFrame(() => { parallax(); ticking = false; });
