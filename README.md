@@ -1,6 +1,6 @@
 # Miguel Arbeláez - portfolio
 
-Static site, no build step. Plain HTML, CSS and JavaScript. The workflow in `.github/workflows/deploy.yml` publishes it to GitHub Pages on every push to `main`.
+Static site, no build step. Plain HTML, CSS and JavaScript. GitHub Pages serves the `main` branch as is (`.nojekyll` keeps Jekyll out of it), so every push to `main` is live a minute later.
 
 ## Edit
 
@@ -21,4 +21,4 @@ Add `?theme=night` or `?theme=day` to the URL to force a theme.
 
 ## Publish
 
-Push to `main`. The first time, in the repository settings under *Pages*, set the source to *GitHub Actions*.
+Push to `main`. The first time, in the repository settings under *Pages*, set Source to *Deploy from a branch*, branch `main`, folder `/ (root)`.
