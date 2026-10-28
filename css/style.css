@@ -19,6 +19,7 @@
   --sky: #87ceeb;
   --sky-deep: #5fb0e8;
   --page: #8dc0fa;
+  --cloud: #d3f0fc;         /* flat bottom colour of the nearest hero cloud layer */
   --box: #1b2a4a;           /* dialog box fill */
   --box-edge: #0b1326;      /* thin dark ring around the white frame */
   --frame: #ffffff;         /* the white frame */
@@ -31,6 +32,7 @@
 }
 :root[data-theme="night"] {
   --page: #364150;
+  --cloud: #4c5456;         /* the same colour after the night filter */
   --box: #101a30;
   --box-edge: #04070e;
   --layer-filter: brightness(0.35) saturate(0.7);
@@ -162,7 +164,7 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 .layer--c3 .tile    { background-image: url("../assets/img/hero/clouds3.webp"); --drift: 150s; }
 .layer--c2 .tile    { background-image: url("../assets/img/hero/clouds2.webp"); --drift: 110s; }
 .layer--c1 .tile    { background-image: url("../assets/img/hero/clouds1.webp"); --drift: 80s; }
-.layer--c1::after { content: ""; position: absolute; left: 0; right: 0; top: calc(86% + 15px); height: 80%; background: linear-gradient(#d3f0fc, #8dc0fa 5%); } /* day colours: the layer's night filter darkens them to the night page colour */
+.layer--c1::after { content: ""; position: absolute; left: 0; right: 0; top: calc(86% + 15px); height: 80%; background: #d3f0fc; } /* day colour: the layer's night filter darkens it to --cloud */
 @keyframes drift { to { transform: translateX(calc(-1 * var(--tile, 1920px))); } }
 
 /* a soft dark halo behind the title so it reads on the pale sky */
@@ -198,6 +200,13 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
   .backdrop__layer--near .backdrop__tile { --tile: 800px; }
 }
 .page { position: relative; z-index: 1; }
+/* the hero's cloud colour keeps going down the page and clears into the sky over a long span */
+.page::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; z-index: -1; pointer-events: none;
+  height: min(1700px, 190vh);
+  background: var(--cloud); transition: background-color var(--t) ease;
+  -webkit-mask-image: linear-gradient(#000, transparent); mask-image: linear-gradient(#000, transparent);
+}
 
 /* ───────── sections ───────── */
 .section { max-width: 1120px; margin: 0 auto; padding: clamp(48px, 7vw, 88px) clamp(16px, 3vw, 32px); scroll-margin-top: 60px; }
