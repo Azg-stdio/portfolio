@@ -107,18 +107,20 @@
     if (m && byId.has(m[1])) open(m[1], false);
   }
 
-  /* ───────── parallax ───────── */
+  /* ───────── parallax: hero layers and the sky behind the page ───────── */
   const hero = $(".hero");
-  const layers = $$(".layer");
+  const heroLayers = $$(".layer");
+  const skyLayers = $$(".backdrop__layer");
   function sizeTiles() {
-    // Tiles are 1920x1080 scaled to the hero height; the drift moves exactly one tile.
+    // Hero tiles are 1920x1080 scaled to the hero height; the drift moves exactly one tile.
     hero.style.setProperty("--tile", Math.round(1920 * (hero.offsetHeight / 1080)) + "px");
   }
-  let ticking = false;
   function parallax() {
     const y = scrollY;
-    if (y > hero.offsetHeight) return;
-    layers.forEach((l) => { l.style.transform = `translate3d(0, ${Math.round(y * l.dataset.depth)}px, 0)`; });
+    if (y <= hero.offsetHeight) {
+      heroLayers.forEach((l) => { l.style.transform = `translate3d(0, ${Math.round(y * l.dataset.depth)}px, 0)`; });
+    }
+    skyLayers.forEach((l) => { l.style.transform = `translate3d(0, ${-Math.round(y * l.dataset.depth) % 1080}px, 0)`; });
   }
   sizeTiles();
   addEventListener("resize", sizeTiles, { passive: true });
@@ -127,6 +129,7 @@
   const nav = $("#nav");
   const toTop = $("#to-top");
   const navLinks = $$(".nav__links a");
+  let ticking = false;
   addEventListener("scroll", () => {
     nav.classList.toggle("is-scrolled", scrollY > 40);
     toTop.hidden = scrollY < hero.offsetHeight;
@@ -144,12 +147,18 @@
     $$("main > section[id]").forEach((s) => io.observe(s));
   }
 
-  /* ───────── theme ───────── */
+  /* ───────── day / night ───────── */
   const root = document.documentElement;
+  let switchTimer = 0;
   $("#theme").addEventListener("click", () => {
-    const night = root.dataset.theme === "night" || (!root.dataset.theme && matchMedia("(prefers-color-scheme: dark)").matches);
-    root.dataset.theme = night ? "day" : "night";
-    try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
+    const next = root.dataset.theme === "night" ? "day" : "night";
+    if (!reduceMotion) {
+      root.classList.add("is-switching");
+      clearTimeout(switchTimer);
+      switchTimer = setTimeout(() => root.classList.remove("is-switching"), 1000);
+    }
+    root.dataset.theme = next;
+    try { localStorage.setItem("theme", next); } catch (e) {}
   });
 
   /* ───────── music, loaded only when asked ───────── */
