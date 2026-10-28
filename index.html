@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Miguel Arbeláez - Portfolio</title>
+  <meta name="description" content="Miguel Arbeláez, full stack developer and video games developer from Bogotá, Colombia. Web projects, games in development and game jam entries.">
+  <meta name="author" content="Miguel Arbeláez">
+  <meta name="theme-color" content="#87ceeb">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Miguel Arbeláez - Portfolio">
+  <meta property="og:description" content="Full stack developer and video games developer. Web projects, games in development and game jam entries.">
+  <meta property="og:image" content="https://azg-stdio.github.io/portfolio/assets/img/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/dotgothic16.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/img/hero/background.webp" as="image">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    /* Apply the saved theme before first paint. ?theme=day|night overrides it. */
+    (function () {
+      try {
+        var q = /[?&]theme=(day|night)/.exec(location.search);
+        var t = q ? q[1] : localStorage.getItem("theme");
+        if (t === "day" || t === "night") document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body id="top">
+
+  <nav class="nav" id="nav" aria-label="Main">
+    <div class="nav__links">
+      <a href="#building">Building</a>
+      <a href="#web">Web</a>
+      <a href="#games">Game Jams</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="nav__theme" id="theme" type="button" title="Day / Night">
+      <svg width="22" height="22" viewBox="0 0 11 11" aria-hidden="true" shape-rendering="crispEdges">
+        <path class="ico-sun" d="M5 0h1v2H5zM0 5h2v1H0zM9 5h2v1H9zM5 9h1v2H5zM3 3h5v5H3zM1 1h1v1H1zM9 1h1v1H9zM1 9h1v1H1zM9 9h1v1H9z"/>
+        <path class="ico-moon" d="M4 1h4v1H6v1H5v5h1v1h2v1H4V9H3V8H2V3h1V2h1z"/>
+      </svg>
+      <span class="sr-only">Switch between day and night</span>
+    </button>
+  </nav>
+
+  <!-- ───────── HERO ───────── -->
+  <header class="hero">
+    <div class="sky" aria-hidden="true">
+      <div class="stars"></div>
+      <div class="layer layer--bg"    data-depth="0.05"><div class="tile"></div></div>
+      <div class="layer layer--mount" data-depth="0.12"><div class="tile"></div></div>
+      <div class="layer layer--c3"    data-depth="0.22"><div class="tile"></div></div>
+      <div class="layer layer--c2"    data-depth="0.32"><div class="tile"></div></div>
+      <div class="layer layer--c1"    data-depth="0.45"><div class="tile"></div></div>
+    </div>
+    <div class="masthead">
+      <h1 class="masthead__heading">Miguel Arbeláez</h1>
+      <p class="masthead__sub">Full Stack Developer - Video Games Developer</p>
+    </div>
+    <button class="play" id="music" type="button" aria-pressed="false" title="Play music">
+      <svg width="26" height="26" viewBox="0 0 10 10" aria-hidden="true" shape-rendering="crispEdges"><path class="ico-play" d="M2 1h2v1h1v1h1v1h1v1h1v1H7v1H6v1H5v1H4v1H2z"/><path class="ico-pause" d="M2 1h2v8H2zM6 1h2v8H6z"/></svg>
+      <span class="sr-only">Play or pause the music</span>
+    </button>
+    <a class="hero__more" href="#building" aria-label="Scroll down"><span class="cursor cursor--down"></span></a>
+  </header>
+
+  <main>
+    <!-- ───────── NOW BUILDING ───────── -->
+    <section class="section" id="building" data-section="building">
+      <h2 class="section__title">Now Building</h2>
+      <div class="divider"></div>
+      <div class="grid" data-grid></div>
+    </section>
+
+    <!-- ───────── WEB ───────── -->
+    <section class="section" id="web" data-section="web">
+      <h2 class="section__title">Web</h2>
+      <div class="divider"></div>
+      <div class="grid" data-grid></div>
+    </section>
+
+    <!-- ───────── GAME JAMS ───────── -->
+    <section class="section" id="games" data-section="games">
+      <h2 class="section__title">Game Jams</h2>
+      <div class="divider"></div>
+      <div class="grid" data-grid></div>
+    </section>
+
+    <!-- ───────── ABOUT ───────── -->
+    <section class="section section--about" id="about">
+      <h2 class="section__title">About</h2>
+      <div class="divider"></div>
+      <div class="about box">
+        <div class="about__portrait">
+          <img src="assets/img/me.webp" width="200" height="200" alt="Illustration of Miguel Arbeláez" loading="lazy">
+        </div>
+        <div class="about__text">
+          <p>Multimedia Engineer with 7+ years of experience, focused on the development of web solutions with knowledge of multiple frameworks, programming languages, and analytics tools, such as:</p>
+          <ul class="square-list">
+            <li>HTML5</li>
+            <li>CSS/SASS</li>
+            <li>Javascript</li>
+            <li>TypeScript</li>
+            <li>Vue JS</li>
+            <li>Angular</li>
+            <li>React</li>
+            <li>Node JS</li>
+            <li>PHP / Drupal</li>
+            <li>Python</li>
+            <li>SQL (PostgreSQL, MySQL)</li>
+            <li>C# / Unity</li>
+            <li>Godot</li>
+            <li>Git</li>
+            <li>Google Analytics (GA4)</li>
+            <li>GTM</li>
+          </ul>
+          <p>Video game enthusiast, programmer, designer, and sometimes artist, I have participated in multiple game jams, projects and had a game on the Play Store published for 3 years.</p>
+          <p class="about__cta"><a class="btn" href="assets/MiguelArbelaez_CV.pdf" download="MiguelArbelaez_CV.pdf">Download Resumé</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── CONTACT ───────── -->
+    <section class="section" id="contact">
+      <h2 class="section__title">Contact</h2>
+      <div class="divider"></div>
+      <div class="contact">
+        <div class="box contact__box">
+          <h3>Contact Me</h3>
+          <p>Phone: (+57) 320 329 0827<br>Email: <a href="mailto:azg.stdio@gmail.com">azg.stdio@gmail.com</a><br>Bogotá, Colombia</p>
+        </div>
+        <div class="box contact__box">
+          <h3>Around the Web</h3>
+          <p class="contact__links">
+            <a class="btn" href="https://www.linkedin.com/in/miguel-arbelaez-torres/" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="btn" href="https://github.com/Azg-stdio" target="_blank" rel="noopener">GitHub</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year">2026</span> Miguel Arbeláez</p>
+  </footer>
+
+  <a class="to-top" id="to-top" href="#top" aria-label="Back to top" hidden><span class="cursor cursor--up"></span></a>
+
+  <!-- ───────── PROJECT WINDOW ───────── -->
+  <dialog class="modal" id="modal" aria-labelledby="modal-title">
+    <div class="modal__box box">
+      <button class="modal__close" id="modal-close" type="button" aria-label="Close window">
+        <svg width="16" height="16" viewBox="0 0 8 8" aria-hidden="true" shape-rendering="crispEdges"><path d="M0 0h2v1h1v1h2V1h1V0h2v2H7v1H6v2h1v1h1v2H6V7H5V6H3v1H2v1H0V6h1V5h1V3H1V2H0z"/></svg>
+      </button>
+      <div class="modal__body" id="modal-body"></div>
+    </div>
+  </dialog>
+
+  <audio id="audio" preload="none" loop src="assets/audio/sadday.mp3"></audio>
+
+  <script src="js/projects.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>
