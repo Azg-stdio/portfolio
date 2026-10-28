@@ -121,6 +121,7 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 /* ───────── hero ───────── */
 .hero {
   position: relative; isolation: isolate; overflow: hidden; z-index: 2;
+  transition: opacity 450ms ease;
   height: min(100svh, 980px); min-height: 520px;
   display: grid; place-items: center;
   background: linear-gradient(var(--sky-top), var(--sky) 55%, var(--sky-deep));
@@ -299,9 +300,12 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 .footer p { margin: 0; }
 
 
+/* the hero stays hidden until all its layers are decoded, then fades in together */
+.is-loading .hero { opacity: 0; }
+
 /* ───────── motion ───────── */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .layer .tile, .backdrop__tile, .hero__more { animation: none; }
-  .card__caption, .nav { transition: none; }
+  .card__caption, .nav, .hero { transition: none; }
 }

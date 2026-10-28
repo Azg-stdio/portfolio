@@ -107,6 +107,21 @@
     if (m && byId.has(m[1])) open(m[1], false);
   }
 
+  /* ───────── hero reveal: wait for every layer, then fade in together ───────── */
+  (function revealHero() {
+    const root = document.documentElement;
+    const show = () => root.classList.remove("is-loading");
+    const urls = $$(".layer .tile").map((t) => getComputedStyle(t).backgroundImage.match(/url\("?([^")]+)"?\)/)).filter(Boolean).map((m) => m[1]);
+    const loads = urls.map((u) => new Promise((res) => {
+      const im = new Image();
+      im.onload = () => (im.decode ? im.decode().then(res, res) : res());
+      im.onerror = res;
+      im.src = u;
+    }));
+    // never keep the page hidden: whichever comes first, all layers or 2.5 s
+    Promise.race([Promise.all(loads), new Promise((res) => setTimeout(res, 2500))]).then(show);
+  })();
+
   /* ───────── parallax: hero layers and the sky behind the page ───────── */
   const hero = $(".hero");
   const heroLayers = $$(".layer");
